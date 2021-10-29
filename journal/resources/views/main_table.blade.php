@@ -67,12 +67,7 @@
                         tr.innerHTML+=`<td><span class="changeable_td" contenteditable="true" spellcheck="false">${row['name_str']}</span></td>`
                         tr.innerHTML+=`<td><span class="changeable_td" contenteditable="true" spellcheck="false">${row['shortname']}</span></td>`
 
-                        // var id=1;
-                        // for (var time of row['time_vals']){
-                        //     tr.innerHTML+=`<td data-time-id="${id}">${time['hour_val']}</td>`
-                        //     id++;
-                        // }
-                        // tr.innerHTML+=`<td>${row['sut_val']}</td>`
+
                         table_body.appendChild(tr);
                         link_to_changeable();
                     }
