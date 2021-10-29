@@ -1,0 +1,92 @@
+#tableDiv{
+    overflow-x: auto;
+}
+
+.objCell { min-width: 150px; }
+.timeCell{ min-width: 50px }
+.itemInfoTable {
+    width: 100%;
+    border: none;
+    margin-bottom: 20px;
+}
+.itemInfoTable thead th {
+    font-weight: bold;
+    text-align: left;
+    border: none;
+    padding: 10px 15px;
+    background: #d8d8d8;
+    font-size: 14px;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+}
+.itemInfoTable tbody td {
+    text-align: left;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    /*padding: 10px 15px;*/
+    font-size: 14px;
+    vertical-align: top;
+}
+.changeable_td{
+    line-height: 22px;
+    display: inline-block;
+    padding: 10px 15px;
+    vertical-align: top;
+    width: calc(100% - 30px);
+}
+.itemInfoTable thead tr th:first-child, .table tbody tr td:first-child {
+    border-left: none;
+}
+.itemInfoTable thead tr th:last-child, .table tbody tr td:last-child {
+    border-right: none;
+}
+.itemInfoTable tbody tr:nth-child(even){
+    background: #f3f3f3;
+}
+
+.changeable_td-edit-controls {
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    text-align: right;
+}
+.changeable_td-edit-control{
+    margin-left: 10px;
+    width: 75px;
+    margin-top: 10px;
+
+    text-decoration: none;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    border: none;
+    border-radius: 3px;
+    color: white;
+    transition: .2s ease-in-out;
+}
+#changeable_td-edit-ok{
+    background: #0079c2;
+}
+
+#changeable_td-edit-cancel{
+    background: lightcoral;
+}
+
+.changeable_td-edit-control:before {
+    content: "";
+    background: linear-gradient(90deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .5));
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    top: -8px;
+    left: -75px;
+    transform: skewX(-45deg);
+}
+.changeable_td-edit-control:hover {
+    background: #fe6637;
+    color: #fff;
+}
+.changeable_td-edit-control:hover:before {
+    left: 150px;
+    transition: .5s ease-in-out;
+}
