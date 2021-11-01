@@ -286,3 +286,10 @@ input[type=date] {
     box-sizing: border-box;
 }
 
+
+.tableItemInfoChart{
+    width: 600px;
+    height: 250px;
+}
+
+

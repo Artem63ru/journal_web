@@ -26,6 +26,17 @@
     <script src="{{asset('assets/libs/changeable_td.js')}}"></script>
     <script src="{{asset('assets/libs/tooltip/popper.min.js')}}"></script>
     <script src="{{asset('assets/libs/tooltip/tippy-bundle.umd.min.js')}}"></script>
+
+    <script src="{{asset('assets/libs/amCharts/core.js')}}"></script>
+    <script src="{{asset('assets/libs/amCharts/charts.js')}}"></script>
+    <script src="{{asset('assets/libs/amCharts/animated.js')}}"></script>
+
+{{--    <script src="{{asset('assets/libs/chartsJS/chart.esm.js')}}"></script>--}}
+{{--    <script src="{{asset('assets/libs/chartsJS/chart.js')}}"></script>--}}
+{{--    <script src="{{asset('assets/libs/chartsJS/helpers.esm.js')}}"></script>--}}
+
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
 @endpush
 
 @push('styles')
@@ -63,12 +74,13 @@
     </table>
 </div>
 
-<span id="main_link_li_tooltip_content">YOYOYOYOYOY</span>
+
 
 
 <script>
     $(document).ready(function (){
         var text=null;
+
 
 
         $('.changeable_td').blur(function() {
@@ -171,8 +183,8 @@
         )
         $('[data-drop-down="true"]').attr('data-used', 'false')
     }
-    const template = document.getElementById('main_link_li_tooltip_content');
-    template.style.display = 'block';
+    // const template = document.getElementById('main_link_li_tooltip_content');
+    // template.style.display = 'block';
     function get_table_data(data_id){
         hide_mins_columns()
 
@@ -187,7 +199,9 @@
                 var result = Object.keys(data).map((key) => data[key]);
                 var table_body=document.getElementById('itemInfoTable').getElementsByTagName('tbody')[0]
                 table_body.innerText=''
+                var charts={}
                 for(var row of result){
+                    console.log(row['id'])
                     var tr=document.createElement('tr')
                     tr.setAttribute('data-id', row['id'])
                     tr.innerHTML+=`<td>${row['hfrpok']}</td>`
@@ -197,16 +211,90 @@
                     tr.innerHTML+=`<td>${row['shortname']}</td>`
 
                     var id=1;
+                    var data = [];
+                    var xaxis=[];
                     for (var time of row['time_vals']){
+                        console.log(time['time'])
                         tr.innerHTML+=`<td data-time-id="${id}" class="hour-value-${row['id']}">${time['hour_val']}</td>`
+                        xaxis.push(moment(time['time']).format('HH:mm'))
+                        data.push(parseFloat(time['hour_val']))
                         id++;
                     }
                     tr.innerHTML+=`<td>${row['sut_val']}</td>`
                     table_body.appendChild(tr);
 
+                    charts[row['id']]=document.createElement('div');
+                    charts[row['id']].setAttribute('id', `chart${row['id']}`);
+                    charts[row['id']].setAttribute('class', 'tableItemInfoChart')
+                    document.body.appendChild(charts[row['id']]);
+
+                    // var chart = am4core.create(charts[row['id']].id, am4charts.XYChart);
+                    //
+                    // chart.data = data;
+                    // chart.background.fill = '#fff'
+                    // chart.background.opacity = 1
+                    // // Create axes
+                    // var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+                    // dateAxis.renderer.minGridDistance = 60;
+                    //
+                    // var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+                    //
+                    // // Create series
+                    // var series = chart.series.push(new am4charts.LineSeries());
+                    // series.dataFields.valueY = "value";
+                    // series.dataFields.dateX = "date";
+                    // series.tooltipText = "{value}"
+                    //
+                    // series.tooltip.pointerOrientation = "vertical";
+                    //
+                    // chart.cursor = new am4charts.XYCursor();
+                    // chart.cursor.snapToSeries = series;
+                    // chart.cursor.xAxis = dateAxis;
+                    //
+                    // //chart.scrollbarY = new am4core.Scrollbar();
+                    // chart.scrollbarX = new am4core.Scrollbar();
+
+                    var options = {
+                        series: [{
+                            name: row['name_str'],
+                            data: data
+                        }],
+                        xaxis: {
+                            categories: xaxis
+                        },
+                        chart: {
+                            type: 'line',
+                            height: 350
+                        },
+                        stroke: {
+                            curve: 'stepline',
+                        },
+                        dataLabels: {
+                            enabled: false
+                        },
+                        title: {
+                            text: `Показатель ${row['hfrpok']}`,
+                            align: 'left'
+                        },
+                        markers: {
+                            hover: {
+                                sizeOffset: 4
+                            }
+                        }
+                    };
+
+                    var chart = new ApexCharts(document.getElementById(`chart${row['id']}`), options);
+
+                    chart.render();
+
+                    console.log(document.getElementById(`chart${row['id']}`))
+
+
+
                     tippy.createSingleton(tippy(`.hour-value-${row['id']}`, {
-                        content: template,
+                        content: charts[row['id']]
                     }), {
+                        maxWidth:650,
                         interactive: true,
                         allowHTML: true,
                         delay: 500, // ms
