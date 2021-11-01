@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class TableObj extends Model{
     protected $table='app_info.test_table';
-    public $timestamps = true;
+    public $timestamps = false;
     public $primaryKey = 'id';
     protected $fillable = [
         'hfrpok', 'namepar1', 'inout', 'name', 'shortname'

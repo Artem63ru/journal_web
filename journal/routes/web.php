@@ -31,6 +31,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/get_mins_params', [Controllers\SidetreeController::class, 'getMinsParams']);
     Route::get('/maintable', [Controllers\MainTableController::class, 'index']);
     Route::get('/getmaintable', [Controllers\MainTableController::class, 'getMainTableInfo']);
+    Route::post('/changetable', [Controllers\MainTableController::class, 'changeMainTable']);
 
 });
 //*******************************************

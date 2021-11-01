@@ -24,10 +24,13 @@
 @push('scripts')
     <script src="{{asset('assets/js/moment-with-locales.min.js')}}"></script>
     <script src="{{asset('assets/libs/changeable_td.js')}}"></script>
+    <script src="{{asset('assets/libs/tooltip/popper.min.js')}}"></script>
+    <script src="{{asset('assets/libs/tooltip/tippy-bundle.umd.min.js')}}"></script>
 @endpush
 
 @push('styles')
     <link rel="stylesheet" href="{{asset('assets/css/table.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/libs/tooltip/tooltip.css')}}">
 @endpush
 
 <div id="tableDiv">
@@ -51,7 +54,7 @@
                 <th data-drop-down="true" class="timeCell" data-time="18:00" data-time-id="10"><h4>18:00</h4></th>
                 <th data-drop-down="true" class="timeCell" data-time="19:00" data-time-id="11"><h4>19:00</h4></th>
                 <th data-drop-down="true" class="timeCell" data-time="20:00" data-time-id="12"><h4>20:00</h4></th>
-                <th data-drop-down="false" class="timeCell"><h4>Суточный</h4></th>
+                <th data-drop-down="false" class="sutCell"><h4>Суточный</h4></th>
             </tr>
         </thead>
         <tbody>
@@ -60,10 +63,13 @@
     </table>
 </div>
 
+<span id="main_link_li_tooltip_content">YOYOYOYOYOY</span>
+
 
 <script>
     $(document).ready(function (){
         var text=null;
+
 
         $('.changeable_td').blur(function() {
             $(this).text(text);
@@ -104,6 +110,16 @@
                     $(new_th).show('fast')
                     time_buff.subtract(5, 'minutes');
                     $(new_th).text(time_buff.format('HH:mm'))
+                    // $(new_th).mousedown(function(event){
+                    //     event.preventDefault();
+                    //     if(event.button == 0){
+                    //         alert('Вы кликнули левой клавишей');
+                    //     } else if(event.button == 1){
+                    //         alert('Вы кликнули левой колесиком');
+                    //     } else if(event.button == 2){
+                    //         alert('Вы кликнули правой клавишей');
+                    //     }
+                    // })
                 }
                 $.ajax({
                     url:'/get_mins_params',
@@ -127,7 +143,8 @@
                             for (var i=10; i>=0; i--){
                                 var new_td=document.createElement('td');
                                 // new_th.setAttribute('data-time-id', id);
-                                new_td.className='timeCell mins-columns';
+                                // new_td.className='timeCell mins-columns';
+
                                 $(new_td).hide();
                                 $(td).after(new_td);
                                 $(new_td).show('fast');
@@ -154,7 +171,8 @@
         )
         $('[data-drop-down="true"]').attr('data-used', 'false')
     }
-
+    const template = document.getElementById('main_link_li_tooltip_content');
+    template.style.display = 'block';
     function get_table_data(data_id){
         hide_mins_columns()
 
@@ -180,14 +198,27 @@
 
                     var id=1;
                     for (var time of row['time_vals']){
-                        tr.innerHTML+=`<td data-time-id="${id}">${time['hour_val']}</td>`
+                        tr.innerHTML+=`<td data-time-id="${id}" class="hour-value-${row['id']}">${time['hour_val']}</td>`
                         id++;
                     }
                     tr.innerHTML+=`<td>${row['sut_val']}</td>`
                     table_body.appendChild(tr);
+
+                    tippy.createSingleton(tippy(`.hour-value-${row['id']}`, {
+                        content: template,
+                    }), {
+                        interactive: true,
+                        allowHTML: true,
+                        delay: 500, // ms
+                    });
                 }
+
+
+
             }
         })
     }
+
+
 
 </script>

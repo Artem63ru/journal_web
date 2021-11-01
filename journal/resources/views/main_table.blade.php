@@ -14,7 +14,7 @@
 @section('content')
     <div id="content-header"></div>
     <div id="tableDiv">
-        <table id="itemInfoTable" class="itemInfoTable">
+        <table id="itemInfoTable" class="itemInfoTable" data-table-type="main-table">
             <thead>
                 <tr>
                     <th><h4>Код показателя</h4></th>
@@ -27,17 +27,6 @@
                 <tbody>
 
                 </tbody>
-{{--            <tbody>--}}
-{{--                @foreach($table as $row)--}}
-{{--                    <tr>--}}
-{{--                        <td>{{$row->hfrpok}}</td>--}}
-{{--                        <td>{{$row->namepar1}}</td>--}}
-{{--                        <td>{{$row->inout}}</td>--}}
-{{--                        <td>{{$row->name_str}}</td>--}}
-{{--                        <td>{{$row->shortname}}</td>--}}
-{{--                    </tr>--}}
-{{--                @endforeach--}}
-{{--            </tbody>--}}
         </table>
     </div>
 
@@ -60,17 +49,29 @@
                     table_body.innerText=''
                     for(var row of result){
                         var tr=document.createElement('tr')
-                        tr.setAttribute('data-id', row['id'])
-                        tr.innerHTML+=`<td><span class="changeable_td" contenteditable="true" spellcheck="false">${row['hfrpok']}</span></td>`
-                        tr.innerHTML+=`<td><span class="changeable_td" contenteditable="true" spellcheck="false">${row['namepar1']}</span></td>`
-                        tr.innerHTML+=`<td><span class="changeable_td" contenteditable="true" spellcheck="false">${row['inout']}</span></td>`
-                        tr.innerHTML+=`<td><span class="changeable_td" contenteditable="true" spellcheck="false">${row['name_str']}</span></td>`
-                        tr.innerHTML+=`<td><span class="changeable_td" contenteditable="true" spellcheck="false">${row['shortname']}</span></td>`
-
-
+                        for (var key in row){
+                            if (key==='id'){
+                                tr.setAttribute('data-id', row['id'])
+                            }
+                            else{
+                                if (row[key]==null){
+                                    var value=''
+                                }
+                                else{
+                                    value=row[key]
+                                }
+                                tr.innerHTML+=`<td><span data-column="${key}" class="changeable_td" contenteditable="true" spellcheck="false">${value}</span></td>`
+                            }
+                        }
                         table_body.appendChild(tr);
-                        link_to_changeable();
+                        // tr.innerHTML+=`<td><span data-column="hfrpok" class="changeable_td" contenteditable="true" spellcheck="false">${row['hfrpok']}</span></td>`
+                        // tr.innerHTML+=`<td><span data-column="namepar1" class="changeable_td" contenteditable="true" spellcheck="false">${row['namepar1']}</span></td>`
+                        // tr.innerHTML+=`<td><span data-column="inout" spellcheck="false">${row['inout']}</span></td>`
+                        // tr.innerHTML+=`<td><span data-column="name_str" class="changeable_td" contenteditable="true" spellcheck="false">${row['name_str']}</span></td>`
+                        // tr.innerHTML+=`<td><span data-column="shortname" class="changeable_td" contenteditable="true" spellcheck="false">${row['shortname']}</span></td>`
+                        // table_body.appendChild(tr);
                     }
+                    link_to_changeable();
                 }
             })
         }

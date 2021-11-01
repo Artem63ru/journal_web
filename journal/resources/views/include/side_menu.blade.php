@@ -118,7 +118,7 @@
     .side_tree {
         margin-left: -30px;
         height: 100%;
-        overflow-y: scroll;
+        overflow-y: auto;
 
     }
 

@@ -23,6 +23,18 @@ class MainTableController extends Controller
         )->where('namepar1', '=', $namepar1[0]->namepar1)->orderBy('id')->get();
         return $table;
     }
+
+    public function changeMainTable(Request $request){
+        try{
+            TableObj::where('id', $request->id)->
+                update([$request->column=>$request->value]);
+            return [true];
+        }
+        catch (\Exception $err){
+            return [false, $err];
+        }
+//        return [$request->id, $request->column, $request->value];
+    }
 }
 
 ?>
