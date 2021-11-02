@@ -62,6 +62,7 @@
             <ul class="header_menu">
                 <li><a href="/" style="padding-right: 37px;">Временные показатели</a></li>
                 <li><a href="/maintable" style="padding-right: 37px;">Таблица</a></li>
+                <li><a href="/sumreports" style="padding-right: 37px;">Сводный отчет</a></li>
             </ul>
             <div class="user_profile">
                 <img alt="Пользователь" src="{{ asset('assets/images/user.jpg') }}" class="user_avatar">

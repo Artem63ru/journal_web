@@ -3,6 +3,12 @@
     Главная таблица показателей
 @endsection
 
+@section('side_menu')
+    @include('include.side_menu')
+@endsection
+
+
+
 @push('styles')
     <link rel="stylesheet" href="{{asset('assets/css/table.css')}}">
 @endpush
@@ -71,7 +77,7 @@
                         // tr.innerHTML+=`<td><span data-column="shortname" class="changeable_td" contenteditable="true" spellcheck="false">${row['shortname']}</span></td>`
                         // table_body.appendChild(tr);
                     }
-                    link_to_changeable();
+                    link_to_changeable('/changetable');
                 }
             })
         }

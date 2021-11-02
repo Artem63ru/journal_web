@@ -35,8 +35,17 @@
 {{--</script>--}}
 <DIV CLASS="side_menu" id="side_menu"></DIV>
 
+<style>
+    .content{
+        width: calc(80% - 40px);
+    }
+</style>
+
 <script>
     var click_side_menu_func=null;
+
+
+
     $(document).ready(function (){
 
         var tableItems=[];
@@ -112,6 +121,20 @@
     })
 
 
+</script>
+
+<script>
+    $( "#side_menu" ).resizable({
+        handles: 'e'
+    });
+    $('#side_menu').resize(function(){
+        $('#main_content').width($(document.body).width()-$('#side_menu').width()-40)
+    })
+
+    $(window).resize(function(){
+        $('#main_content').width($(document.body).width()-$("#side_menu").width()-40);
+        // $('#side_menu').height($(document.body).height());
+    })
 </script>
 
 <style>

@@ -1,4 +1,4 @@
-function link_to_changeable() {
+function link_to_changeable(url_link) {
     var text = null;
 
 
@@ -11,7 +11,10 @@ function link_to_changeable() {
         text = event.target.textContent;
     });
 
-    $('.changeable_td').keydown(function (event) {
+    $('.changeable_td').keypress(function (event) {
+        console.log(event.keyCode)
+        var x = event.charCode || event.keyCode;
+
         if (event.keyCode === 13) {
             var data={
                 'id':$(event.target.parentNode.parentNode).attr('data-id'),
@@ -20,25 +23,26 @@ function link_to_changeable() {
             }
             console.log(data)
             $.ajax({
-                url:'/changetable',
+                url:url_link,
                 type:'POST',
                 data: data,
                 success:(data)=>{
                     if (data[0]===true){
                         text = event.target.textContent;
-                        event.target.blur();
                     }
                     else{
                         ///Известить об ошибке
                     }
                 }
             })
-            // if (!event.shiftKey){
-            //     text=event.target.textContent;
-            //     event.target.blur();
-            // }
-
+            event.target.blur();
         }
+        else{
+            if (isNaN(String.fromCharCode(event.which)) && (String.fromCharCode(event.which) !='.') || x===32 || (String.fromCharCode(event.which) ==='.' && event.currentTarget.innerText.includes('.'))) {
+                event.preventDefault();
+            }
+        }
+
     })
 }
 
