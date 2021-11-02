@@ -37,6 +37,9 @@
 
 <script>
     var click_side_menu_func=null;
+
+
+
     $(document).ready(function (){
 
         var tableItems=[];

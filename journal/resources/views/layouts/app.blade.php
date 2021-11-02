@@ -65,7 +65,7 @@
 
         $(window).resize(function(){
             $('#main_content').width($(document.body).width()-$("#side_menu").width()-40);
-            $('#side_menu').height($(document.body).height());
+            // $('#side_menu').height($(document.body).height());
         })
     </script>
 @endauth

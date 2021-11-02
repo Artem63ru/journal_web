@@ -78,9 +78,24 @@
 
 
 <script>
-    $(document).ready(function (){
-        var text=null;
+    var header_content='Временные показатели для ';
 
+
+    $(document).ready(function (){
+        var today  = new Date();
+
+        click_side_menu_func=get_table_data;
+
+        $('#table_date').val(today.toISOString().substring(0, 10))
+        document.getElementById("table_date").setAttribute("max", today.toISOString().substring(0, 10));
+
+        $('#table_date').change(function(){
+            var choiced=$('.choiced')[0]
+            click_side_menu_func(choiced.getAttribute('data-id'));
+        })
+
+
+        var text=null;
 
 
         $('.changeable_td').blur(function() {
