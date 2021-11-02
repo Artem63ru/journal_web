@@ -201,7 +201,7 @@
                 table_body.innerText=''
                 var charts={}
                 for(var row of result){
-                    console.log(row['id'])
+                    // console.log(row['id'])
                     var tr=document.createElement('tr')
                     tr.setAttribute('data-id', row['id'])
                     tr.innerHTML+=`<td>${row['hfrpok']}</td>`
@@ -214,7 +214,7 @@
                     var data = [];
                     var xaxis=[];
                     for (var time of row['time_vals']){
-                        console.log(time['time'])
+                        // console.log(time['time'])
                         tr.innerHTML+=`<td data-time-id="${id}" class="hour-value-${row['id']}">${time['hour_val']}</td>`
                         xaxis.push(moment(time['time']).format('HH:mm'))
                         data.push(parseFloat(time['hour_val']))
@@ -280,6 +280,20 @@
                             hover: {
                                 sizeOffset: 4
                             }
+                        },
+                        tooltip: {
+                            custom: function ({series, seriesIndex, dataPointIndex, w}) {
+                                // console.log(yo)
+                                return (
+                                    '<div class="arrow_box">' +
+                                    "<span>" +
+                                    w.globals.seriesNames[seriesIndex] +
+                                    ": " +
+                                    series[seriesIndex][dataPointIndex] +
+                                    "</span>" +
+                                    "</div>"
+                                );
+                            }
                         }
                     };
 
@@ -287,7 +301,7 @@
 
                     chart.render();
 
-                    console.log(document.getElementById(`chart${row['id']}`))
+                    // console.log(document.getElementById(`chart${row['id']}`))
 
 
 
