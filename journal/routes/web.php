@@ -33,6 +33,11 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/getmaintable', [Controllers\MainTableController::class, 'getMainTableInfo']);
     Route::post('/changetable', [Controllers\MainTableController::class, 'changeMainTable']);
 
+
+    //СВОДНАЯ ТАБЛИЦА
+    Route::get('/sumreports', [Controllers\SumReportsController::class, 'index']);
+    Route::get('/getsumreportstable', [Controllers\SumReportsController::class, 'getTable']);
+
 });
 //*******************************************
 Auth::routes();

@@ -3,8 +3,14 @@
     Временные показатели
 @endsection
 
+@section('side_menu')
+    @include('include.side_menu')
+@endsection
+
+
 
 @section('content')
+
 @push('scripts')
     <script src="{{asset('assets/js/moment-with-locales.min.js')}}"></script>
     <script src="{{asset('assets/libs/changeable_td.js')}}"></script>
@@ -56,7 +62,11 @@
 </div>
 
 
-
+<style>
+    .content{
+        width: calc(100% - 40px);
+    }
+</style>
 
 <script>
     var header_content='Временные показатели для ';
@@ -74,30 +84,6 @@
             var choiced=$('.choiced')[0]
             click_side_menu_func(choiced.getAttribute('data-id'));
         })
-
-
-        var text=null;
-
-
-        $('.changeable_td').blur(function() {
-            $(this).text(text);
-            text=null;
-        });
-
-        $('.changeable_td').focus(function(event){
-            text=event.target.textContent;
-        });
-
-        $('.changeable_td').keydown(function (event){
-            if (event.keyCode === 13) {
-                // if (!event.shiftKey){
-                //     text=event.target.textContent;
-                //     event.target.blur();
-                // }
-                text=event.target.textContent;
-                event.target.blur();
-            }
-        });
 
         $('[data-drop-down="true"]').click(function (){
             if (this.getAttribute('data-used')==='true'){
@@ -118,16 +104,7 @@
                     $(new_th).show('fast')
                     time_buff.subtract(5, 'minutes');
                     $(new_th).text(time_buff.format('HH:mm'))
-                    // $(new_th).mousedown(function(event){
-                    //     event.preventDefault();
-                    //     if(event.button == 0){
-                    //         alert('Вы кликнули левой клавишей');
-                    //     } else if(event.button == 1){
-                    //         alert('Вы кликнули левой колесиком');
-                    //     } else if(event.button == 2){
-                    //         alert('Вы кликнули правой клавишей');
-                    //     }
-                    // })
+
                 }
                 $.ajax({
                     url:'/get_mins_params',
@@ -224,31 +201,6 @@
                     charts[row['id']].setAttribute('class', 'tableItemInfoChart')
                     document.body.appendChild(charts[row['id']]);
 
-                    // var chart = am4core.create(charts[row['id']].id, am4charts.XYChart);
-                    //
-                    // chart.data = data;
-                    // chart.background.fill = '#fff'
-                    // chart.background.opacity = 1
-                    // // Create axes
-                    // var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-                    // dateAxis.renderer.minGridDistance = 60;
-                    //
-                    // var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-                    //
-                    // // Create series
-                    // var series = chart.series.push(new am4charts.LineSeries());
-                    // series.dataFields.valueY = "value";
-                    // series.dataFields.dateX = "date";
-                    // series.tooltipText = "{value}"
-                    //
-                    // series.tooltip.pointerOrientation = "vertical";
-                    //
-                    // chart.cursor = new am4charts.XYCursor();
-                    // chart.cursor.snapToSeries = series;
-                    // chart.cursor.xAxis = dateAxis;
-                    //
-                    // //chart.scrollbarY = new am4core.Scrollbar();
-                    // chart.scrollbarX = new am4core.Scrollbar();
 
                     var options = {
                         series: [{
@@ -320,5 +272,7 @@
 
 
 </script>
+
+
 
 @endsection

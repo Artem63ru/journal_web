@@ -34,13 +34,10 @@
 </head>
 <body>
 
-
+@yield('side_menu')
 
 @include('include.header')
 
-@auth
-@include('include.side_menu')
-@endauth
 
 @auth
     <div class="content" id="main_content" >
@@ -54,21 +51,7 @@
     </div>
 @endguest
 
-@auth
-    <script>
-        $( "#side_menu" ).resizable({
-            handles: 'e'
-        });
-        $('#side_menu').resize(function(){
-            $('#main_content').width($(document.body).width()-$('#side_menu').width()-40)
-        })
 
-        $(window).resize(function(){
-            $('#main_content').width($(document.body).width()-$("#side_menu").width()-40);
-            // $('#side_menu').height($(document.body).height());
-        })
-    </script>
-@endauth
 
 
 
