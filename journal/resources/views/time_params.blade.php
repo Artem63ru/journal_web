@@ -1,41 +1,17 @@
+@extends('layouts.app')
+@section('title')
+    Временные показатели
+@endsection
 
-{{--<table id="itemInfoTable" class="itemInfoTable">--}}
-{{--    <thead>--}}
-{{--        <tr>--}}
-{{--            <th data-drop-down="false"><h4>Объект</h4></th>--}}
-{{--            <th data-drop-down="false"><h4>Пояснение</h4></th>--}}
-{{--            <th data-drop-down="true" data-param="testParam" data-used="false"><h4>Параметр</h4></th>--}}
-{{--        </tr>--}}
-{{--    </thead>--}}
-{{--    <tbody>--}}
-{{--        <tr data-table="" data-id="">--}}
-{{--            <td data-param=""><span class="changeable_td" contenteditable="true" spellcheck="false">Ямсовей</span></td>--}}
-{{--            <td data-param=""><span class="changeable_td" contenteditable="true" spellcheck="false">ЭТО ЯМСОВЕЙ</span></td>--}}
-{{--            <td data-param=""><span class="changeable_td" contenteditable="true" spellcheck="false">P</span></td>--}}
-{{--        </tr>--}}
-{{--        <tr data-table="" data-id="">--}}
-{{--            <td data-param=""><span class="changeable_td" contenteditable="true" spellcheck="false">Медвежка</span></td>--}}
-{{--            <td data-param=""><span class="changeable_td" contenteditable="true" spellcheck="false">ЭТО МЕДВЕЖКА</span></td>--}}
-{{--            <td data-param=""><span class="changeable_td" contenteditable="true" spellcheck="false">M</span></td>--}}
-{{--        </tr>--}}
-{{--    </tbody>--}}
-{{--    </tbody>--}}
-{{--</table>--}}
+
+@section('content')
 @push('scripts')
     <script src="{{asset('assets/js/moment-with-locales.min.js')}}"></script>
     <script src="{{asset('assets/libs/changeable_td.js')}}"></script>
     <script src="{{asset('assets/libs/tooltip/popper.min.js')}}"></script>
     <script src="{{asset('assets/libs/tooltip/tippy-bundle.umd.min.js')}}"></script>
 
-    <script src="{{asset('assets/libs/amCharts/core.js')}}"></script>
-    <script src="{{asset('assets/libs/amCharts/charts.js')}}"></script>
-    <script src="{{asset('assets/libs/amCharts/animated.js')}}"></script>
-
-{{--    <script src="{{asset('assets/libs/chartsJS/chart.esm.js')}}"></script>--}}
-{{--    <script src="{{asset('assets/libs/chartsJS/chart.js')}}"></script>--}}
-{{--    <script src="{{asset('assets/libs/chartsJS/helpers.esm.js')}}"></script>--}}
-
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="{{asset('assets/libs/apexcharts.js')}}"></script>
 
 @endpush
 
@@ -43,6 +19,11 @@
     <link rel="stylesheet" href="{{asset('assets/css/table.css')}}">
     <link rel="stylesheet" href="{{asset('assets/libs/tooltip/tooltip.css')}}">
 @endpush
+
+
+@include('include.choice_date')
+<div id="content-header"></div>
+
 
 <div id="tableDiv">
     <table id="itemInfoTable" class="itemInfoTable">
@@ -339,3 +320,5 @@
 
 
 </script>
+
+@endsection

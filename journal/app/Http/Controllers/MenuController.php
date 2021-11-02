@@ -10,7 +10,7 @@ class MenuController extends Controller
    public function index()
    {
        $side_tree_data=GD_obj::getTree();
-       return view('table_container');
+       return view('time_params');
 //       return view('time_params', compact('side_tree_data'));
    }
 }
